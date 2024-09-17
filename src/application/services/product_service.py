@@ -1,5 +1,5 @@
 from src.application.domain.product import ProductCreate
-from src.exceptions import ProductTypeDoesNotExists
+from src.exceptions import ProductNotFoundException, ProductTypeDoesNotExists
 from src.infrastructure.database.dao.product_dao import ProductDao
 from src.infrastructure.database.dao.product_type import ProductTypeDao
 from src.infrastructure.database.models import Product
@@ -17,7 +17,12 @@ class ProductService:
         return await ProductDao.create(product_data)
 
     async def get_by_id(self, id: int) -> Product | None:
-        return await ProductDao.get_by_id(id)
+        product = await ProductDao.get_by_id(id)
+
+        if not product:
+            raise ProductNotFoundException
+
+        return product
 
     async def get_by_type_id(self, type_id: int) -> list[Product]:
         type_exists = await ProductTypeDao.get_by_id(type_id)
