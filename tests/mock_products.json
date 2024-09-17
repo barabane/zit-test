@@ -1,0 +1,14 @@
+[
+  {
+    "name": "iphone 11",
+    "product_type_id": 1
+  },
+  {
+    "name": "macbook pro",
+    "product_type_id": 2
+  },
+  {
+    "name": "airpods",
+    "product_type_id": 3
+  }
+]
